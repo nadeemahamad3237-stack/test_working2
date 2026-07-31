@@ -1,0 +1,260 @@
+### index.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test_working2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" disabled>
+        <div class="keys">
+            <button id="clear">C</button>
+            <button id="delete">DEL</button>
+            <button id="equals">=</button>
+            <button id="add">+</button>
+            <button id="subtract">-</button>
+            <button id="multiply">*</button>
+            <button id="divide">/</button>
+            <button id="num-7">7</button>
+            <button id="num-8">8</button>
+            <button id="num-9">9</button>
+            <button id="num-4">4</button>
+            <button id="num-5">5</button>
+            <button id="num-6">6</button>
+            <button id="num-1">1</button>
+            <button id="num-2">2</button>
+            <button id="num-3">3</button>
+            <button id="num-0">0</button>
+            <button id="decimal">.</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
+```
+
+### style.css
+```css
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.calculator {
+    max-width: 300px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#display {
+    width: 100%;
+    height: 40px;
+    font-size: 24px;
+    text-align: right;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+button {
+    height: 40px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #3e8e41;
+}
+
+#clear, #delete, #equals {
+    background-color: #ff9800;
+}
+
+#clear:hover, #delete:hover, #equals:hover {
+    background-color: #e68a00;
+}
+
+@media only screen and (max-width: 600px) {
+    .calculator {
+        margin: 20px auto;
+    }
+}
+```
+
+### app.js
+```javascript
+let display = document.getElementById('display');
+let clear = document.getElementById('clear');
+let deleteButton = document.getElementById('delete');
+let equals = document.getElementById('equals');
+let add = document.getElementById('add');
+let subtract = document.getElementById('subtract');
+let multiply = document.getElementById('multiply');
+let divide = document.getElementById('divide');
+let num7 = document.getElementById('num-7');
+let num8 = document.getElementById('num-8');
+let num9 = document.getElementById('num-9');
+let num4 = document.getElementById('num-4');
+let num5 = document.getElementById('num-5');
+let num6 = document.getElementById('num-6');
+let num1 = document.getElementById('num-1');
+let num2 = document.getElementById('num-2');
+let num3 = document.getElementById('num-3');
+let num0 = document.getElementById('num-0');
+let decimal = document.getElementById('decimal');
+
+let currentNumber = '';
+let previousNumber = '';
+let operator = null;
+
+clear.addEventListener('click', () => {
+    currentNumber = '';
+    previousNumber = '';
+    operator = null;
+    display.value = '';
+});
+
+deleteButton.addEventListener('click', () => {
+    currentNumber = currentNumber.slice(0, -1);
+    display.value = currentNumber;
+});
+
+equals.addEventListener('click', () => {
+    if (currentNumber !== '' && previousNumber !== '') {
+        let result;
+        switch (operator) {
+            case '+':
+                result = parseFloat(previousNumber) + parseFloat(currentNumber);
+                break;
+            case '-':
+                result = parseFloat(previousNumber) - parseFloat(currentNumber);
+                break;
+            case '*':
+                result = parseFloat(previousNumber) * parseFloat(currentNumber);
+                break;
+            case '/':
+                result = parseFloat(previousNumber) / parseFloat(currentNumber);
+                break;
+            default:
+                result = 0;
+        }
+        display.value = result.toString();
+        currentNumber = result.toString();
+        previousNumber = '';
+        operator = null;
+    }
+});
+
+add.addEventListener('click', () => {
+    if (currentNumber !== '') {
+        previousNumber = currentNumber;
+        operator = '+';
+        currentNumber = '';
+        display.value = '';
+    }
+});
+
+subtract.addEventListener('click', () => {
+    if (currentNumber !== '') {
+        previousNumber = currentNumber;
+        operator = '-';
+        currentNumber = '';
+        display.value = '';
+    }
+});
+
+multiply.addEventListener('click', () => {
+    if (currentNumber !== '') {
+        previousNumber = currentNumber;
+        operator = '*';
+        currentNumber = '';
+        display.value = '';
+    }
+});
+
+divide.addEventListener('click', () => {
+    if (currentNumber !== '') {
+        previousNumber = currentNumber;
+        operator = '/';
+        currentNumber = '';
+        display.value = '';
+    }
+});
+
+num7.addEventListener('click', () => {
+    currentNumber += '7';
+    display.value = currentNumber;
+});
+
+num8.addEventListener('click', () => {
+    currentNumber += '8';
+    display.value = currentNumber;
+});
+
+num9.addEventListener('click', () => {
+    currentNumber += '9';
+    display.value = currentNumber;
+});
+
+num4.addEventListener('click', () => {
+    currentNumber += '4';
+    display.value = currentNumber;
+});
+
+num5.addEventListener('click', () => {
+    currentNumber += '5';
+    display.value = currentNumber;
+});
+
+num6.addEventListener('click', () => {
+    currentNumber += '6';
+    display.value = currentNumber;
+});
+
+num1.addEventListener('click', () => {
+    currentNumber += '1';
+    display.value = currentNumber;
+});
+
+num2.addEventListener('click', () => {
+    currentNumber += '2';
+    display.value = currentNumber;
+});
+
+num3.addEventListener('click', () => {
+    currentNumber += '3';
+    display.value = currentNumber;
+});
+
+num0.addEventListener('click', () => {
+    currentNumber += '0';
+    display.value = currentNumber;
+});
+
+decimal.addEventListener('click', () => {
+    if (!currentNumber.includes('.')) {
+        currentNumber += '.';
+        display.value = currentNumber;
+    }
+});
+```
