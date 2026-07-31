@@ -30,6 +30,18 @@ jobs:
       - name: Build APK
         run: gradle assembleDebug
 
+
+      - name: Debug APK Output
+        run: |
+          echo "=== APK files ==="
+          find app/build -type f
+          echo "=== APK folder ==="
+          ls -lah app/build/outputs/apk/debug || true
+          echo "=== APK info ==="
+          file app/build/outputs/apk/debug/app-debug.apk || true
+          echo "=== APK contents ==="
+          unzip -l app/build/outputs/apk/debug/app-debug.apk || true
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
